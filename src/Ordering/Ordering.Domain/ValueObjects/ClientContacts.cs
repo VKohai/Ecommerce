@@ -1,45 +1,53 @@
 ﻿namespace Ordering.Domain.ValueObjects;
-public class ClientContacts
+public record ClientContacts
 {
-    public string? FullName { get; private set; }
-    public string? Email { get; private set; }
-    public string? PhoneNumber { get; private set; }
-    public Uri SocialUrl { get; private set; }
+    private string? _fullName;
+    private string? _email;
+    private string? _phoneNumber;
+
+    public string? FullName
+    {
+        get => _fullName;
+        set
+        {
+            if (string.IsNullOrWhiteSpace(value) || value.Any(char.IsDigit))
+                return;
+
+            _fullName = value.Trim();
+        }
+    }
+
+    public string? Email
+    {
+        get => _email;
+        init
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return;
+
+            _email = value;
+        }
+    }
+
+    public string? PhoneNumber
+    {
+        get => _phoneNumber;
+        init
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return;
+
+            _phoneNumber = value;
+        }
+    }
+
+    public Uri SocialUrl { get; init; }
 
     public ClientContacts(string fullName, string email, string phoneNumber, Uri socialUrl)
     {
         FullName = fullName;
         Email = email;
         PhoneNumber = phoneNumber;
-        SocialUrl = socialUrl;
-    }
-
-    public void UpdateFullName(string? fullName)
-    {
-        if (string.IsNullOrWhiteSpace(fullName) || fullName.Any(char.IsDigit))
-            return;
-
-        FullName = fullName.Trim();
-    }
-
-    public void UpdateEmail(string? email)
-    {
-        if (string.IsNullOrWhiteSpace(email))
-            return;
-
-        Email = email;
-    }
-
-    public void UpdatePhoneNumber(string? phoneNumber)
-    {
-        if (string.IsNullOrWhiteSpace(phoneNumber))
-            return;
-
-        PhoneNumber = phoneNumber;
-    }
-
-    public void UpdateSocialUrl(Uri socialUrl)
-    {
         SocialUrl = socialUrl;
     }
 }
