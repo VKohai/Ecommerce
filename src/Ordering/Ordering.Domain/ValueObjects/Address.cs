@@ -1,5 +1,5 @@
 ﻿namespace Ordering.Domain.ValueObjects;
-public class Address
+public record Address
 {
     public required string Settlement { get; init; }
     public required string Street { get; init; }
