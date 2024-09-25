@@ -6,7 +6,7 @@ namespace Ordering.Domain.Entities;
 public class Order : BaseEntity<int>, IAggregateRoot
 {
     private readonly List<OrderItem> _orderItems;
-    private DateTime _orderCreatedDate;
+    private readonly DateTime _orderCreatedDate;
 
     public decimal TotalPrice { get; private set; }
     public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
@@ -21,8 +21,10 @@ public class Order : BaseEntity<int>, IAggregateRoot
         Address = address;
     }
 
+#pragma warning disable CS8618
     private Order() // required for EF
     { }
+#pragma warning restore CS8618
 
     public void AddOrderItem(OrderItem item)
     {

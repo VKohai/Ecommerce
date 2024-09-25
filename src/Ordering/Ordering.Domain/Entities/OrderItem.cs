@@ -23,7 +23,9 @@ public class OrderItem : BaseEntity<int>
         ProductSize = productSize;
     }
 
+#pragma warning disable CS8618
     private OrderItem() { } // required for EF
+#pragma warning restore CS8618
 
     public void AddUnits(uint units)
     {
