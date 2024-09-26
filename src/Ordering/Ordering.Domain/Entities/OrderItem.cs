@@ -27,15 +27,50 @@ public class OrderItem : BaseEntity<int>
     private OrderItem() { } // required for EF
 #pragma warning restore CS8618
 
+    public void UpdateProductName(string productName)
+    {
+        if (string.IsNullOrWhiteSpace(productName))
+        {
+            throw new OrderingDomainException($"Updating Product Name. {nameof(productName)} is wrong");
+        }
+
+        ProductName = productName;
+    }
+
+    public void UpdatePictureUrl(string pictureUrl)
+    {
+        if (string.IsNullOrWhiteSpace(pictureUrl))
+        {
+            throw new OrderingDomainException($"Updating Picture URL. {nameof(pictureUrl)} is wrong");
+        }
+
+        PictureUrl = pictureUrl;
+    }
+
+    public void UpdateProductSize(string productSize)
+    {
+        if (string.IsNullOrWhiteSpace(productSize))
+        {
+            throw new OrderingDomainException($"Updating Product Size: {nameof(productSize)} is wrong");
+        }
+
+        PictureUrl = productSize;
+    }
+
     public void AddUnits(uint units)
     {
         Units += units;
     }
 
+    public void UpdateUnitPrice(uint unitPrice)
+    {
+        UnitPrice = unitPrice;
+    }
+
     public override string ToString()
     {
         return $"{nameof(ProductName)}: {ProductName}\n" +
-            $"{nameof(PictureUrl)}: {PictureUrl}\n"+
+            $"{nameof(PictureUrl)}: {PictureUrl}\n" +
             $"{nameof(ProductSize)}: {ProductSize}\n" +
             $"{nameof(UnitPrice)}: {UnitPrice}\n" +
             $"{nameof(Units)}: {Units}\n" +

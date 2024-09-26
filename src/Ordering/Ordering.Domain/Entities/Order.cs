@@ -6,7 +6,7 @@ namespace Ordering.Domain.Entities;
 public class Order : BaseEntity<int>, IAggregateRoot
 {
     private readonly List<OrderItem> _orderItems;
-    private readonly DateTime _orderCreatedDate;
+    private readonly DateTime _orderCreated;
 
     public decimal TotalPrice { get; private set; }
     public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
@@ -16,7 +16,7 @@ public class Order : BaseEntity<int>, IAggregateRoot
     public Order(ClientContacts clientContacts, Address address)
     {
         _orderItems = new List<OrderItem>();
-        _orderCreatedDate = DateTime.UtcNow;
+        _orderCreated = DateTime.UtcNow;
         ClientContacts = clientContacts;
         Address = address;
     }
